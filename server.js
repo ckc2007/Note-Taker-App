@@ -46,6 +46,12 @@ app.post("/api/notes", (req, res) => {
   });
 });
 
+// delete route
+app.delete("/api/notes/:id",(req,res)=>{
+    
+})
+
+
 // route for root URL
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
