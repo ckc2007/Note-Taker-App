@@ -21,7 +21,7 @@ app.get("/api/notes", (req, res) => {
     err
       ? res.status(500).send("Error reading database file")
       : res.json(JSON.parse(data));
-    console.log("Success: notes retrieved from database");
+    // console.log("Success: notes retrieved from database");
   });
 });
 
@@ -44,6 +44,7 @@ app.post("/api/notes", (req, res) => {
         res.status(500).send("Error writing to database file.");
         throw err;
       }
+      console.log("Note added successfully!");
       res.status(200).send("Note added successfully!");
     });
   });
@@ -51,19 +52,20 @@ app.post("/api/notes", (req, res) => {
 
 // delete route
 app.delete("/api/notes/:id", (req, res) => {
-  noteId = req.params.id;
-  fs.readFile(path.join(__dirname, "db", "db.json"), (err, data) => {
-    if (err) throw err;
+  const noteId = req.params.id;
+  fs.readFile("./db/db.json", (err, data) => {
+    if (err) {
+      return res.status(500).send("Error reading notes data.");
+    }
     const notes = JSON.parse(data);
     const filteredNotes = notes.filter((note) => note.id !== noteId);
-    fs.writeFile(
-      path.join(__dirname, "db", "db.json"),
-      JSON.stringify(filteredNotes),
-      (err) => {
-        if (err) throw err;
-        res.json(filteredNotes);
+    fs.writeFile("./db/db.json", JSON.stringify(filteredNotes), (err) => {
+      if (err) {
+        return res.status(500).send("Error writing notes data.");
       }
-    );
+      console.log("Note deleted successfully!");
+      res.send("Note deleted successfully!");
+    });
   });
 });
 
