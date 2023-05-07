@@ -86,7 +86,11 @@ app.listen(PORT, () =>
 );
 
 // heroku login in terminal
+
 // type in heroku create
+
 // git push herkou main
+
 // go to heroku itself and go to open app
+
 // git add, git commit git push and git push heroku main
