@@ -27,8 +27,11 @@ app.get("/api/notes", (req, res) => {
 
 // POST route to add note
 app.post("/api/notes", (req, res) => {
-  fs.readFile(path.join(__dirname, "db", "db.json"), (err, data) => {
-    if (err) throw err;
+  fs.readFile("./db/db.json", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading database file.");
+      throw err;
+    }
     const notes = JSON.parse(data);
     const newNote = {
       id: uuidv4(),
@@ -36,14 +39,13 @@ app.post("/api/notes", (req, res) => {
       text: req.body.text,
     };
     notes.push(newNote);
-    fs.writeFile(
-      path.join(__dirname, "db", "db.json"),
-      JSON.stringify(notes),
-      (err) => {
-        if (err) throw err;
-        res.json(newNote);
+    fs.writeFile("./db/db.json", JSON.stringify(notes), (err) => {
+      if (err) {
+        res.status(500).send("Error writing to database file.");
+        throw err;
       }
-    );
+      res.status(200).send("Note added successfully!");
+    });
   });
 });
 
