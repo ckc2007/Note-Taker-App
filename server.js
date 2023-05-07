@@ -58,7 +58,9 @@ app.delete("/api/notes/:id", (req, res) => {
       return res.status(500).send("Error reading notes data.");
     }
     const notes = JSON.parse(data);
+    // filter out the note to be deleted
     const filteredNotes = notes.filter((note) => note.id !== noteId);
+    // update the list
     fs.writeFile("./db/db.json", JSON.stringify(filteredNotes), (err) => {
       if (err) {
         return res.status(500).send("Error writing notes data.");
