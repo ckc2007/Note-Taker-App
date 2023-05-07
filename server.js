@@ -7,7 +7,6 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // middleware functions that make data available in the req object:
-
 // parse JSON body of POST request
 app.use(express.json());
 
@@ -58,6 +57,7 @@ function loadNotes() {
 function saveNotes(notes) {
   fs.writeFileSync(path.join(__dirname, "notes.json"), JSON.stringify(notes));
 }
+
 // route for root URL
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
