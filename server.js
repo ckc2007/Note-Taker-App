@@ -28,8 +28,11 @@ app.get("/notes", (req, res) => {
 
 // GET route to get list of notes
 app.get("/api/notes", (req, res) => {
-  const notes = loadNotes();
-  res.json(notes);
+  fs.readFile(path.join(__dirname, "db", "db.json"), (err, data) => {
+    if (err) throw err;
+    const notes = JSON.parse(data);
+    res.json(notes);
+  });
 });
 
 // POST route to add note
