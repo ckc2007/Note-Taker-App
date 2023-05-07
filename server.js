@@ -10,10 +10,9 @@ const PORT = process.env.PORT || 3001;
 // middleware functions that make data available in the req object:
 // parse JSON body of POST request
 app.use(express.json());
-
 // serve static file in public dir
 app.use(express.static(path.join(__dirname, "public")));
-
+// access form data using req.body
 app.use(express.urlencoded({ extended: true }));
 
 // GET route to get list of notes
@@ -46,17 +45,6 @@ app.post("/api/notes", (req, res) => {
     );
   });
 });
-
-// load notes from JSON
-// function loadNotes() {
-//   const data = fs.readFileSync(path.join(__dirname, "notes.json"));
-//   return JSON.parse(data);
-// }
-
-// save notes to JSON
-// function saveNotes(notes) {
-//   fs.writeFileSync(path.join(__dirname, "notes.json"), JSON.stringify(notes));
-// }
 
 // route for root URL
 app.get("/", (req, res) => {
