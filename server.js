@@ -2,6 +2,7 @@ const fs = require("fs");
 const express = require("express");
 const path = require("path");
 const data = require("./db/db.json");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -29,9 +30,8 @@ app.post("/api/notes", (req, res) => {
   fs.readFile(path.join(__dirname, "db", "db.json"), (err, data) => {
     if (err) throw err;
     const notes = JSON.parse(data);
-    const newNoteId = Math.floor(Math.random() * 1000) + 1;
     const newNote = {
-      id: newNoteId,
+      id: uuidv4(),
       title: req.body.title,
       text: req.body.text,
     };
