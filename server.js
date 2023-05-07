@@ -29,7 +29,7 @@ app.post("/api/notes", (req, res) => {
   fs.readFile(path.join(__dirname, "db", "db.json"), (err, data) => {
     if (err) throw err;
     const notes = JSON.parse(data);
-    const newNoteId = notes.length > 0 ? notes[notes.length - 1].id + 1 : 1;
+    const newNoteId = Math.floor(Math.random() * 1000) + 1;
     const newNote = {
       id: newNoteId,
       title: req.body.title,
@@ -48,15 +48,15 @@ app.post("/api/notes", (req, res) => {
 });
 
 // load notes from JSON
-function loadNotes() {
-  const data = fs.readFileSync(path.join(__dirname, "notes.json"));
-  return JSON.parse(data);
-}
+// function loadNotes() {
+//   const data = fs.readFileSync(path.join(__dirname, "notes.json"));
+//   return JSON.parse(data);
+// }
 
 // save notes to JSON
-function saveNotes(notes) {
-  fs.writeFileSync(path.join(__dirname, "notes.json"), JSON.stringify(notes));
-}
+// function saveNotes(notes) {
+//   fs.writeFileSync(path.join(__dirname, "notes.json"), JSON.stringify(notes));
+// }
 
 // route for root URL
 app.get("/", (req, res) => {
@@ -71,3 +71,9 @@ app.get("/notes", (req, res) => {
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );
+
+// heroku login in terminal
+// type in heroku create
+// git push herkou main
+// go to heroku itself and go to open app
+// git add, git commit git push and git push heroku main
