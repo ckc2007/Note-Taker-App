@@ -47,10 +47,22 @@ app.post("/api/notes", (req, res) => {
 });
 
 // delete route
-app.delete("/api/notes/:id",(req,res)=>{
-    
-})
-
+app.delete("/api/notes/:id", (req, res) => {
+  noteId = req.params.id;
+  fs.readFile(path.join(__dirname, "db", "db.json"), (err, data) => {
+    if (err) throw err;
+    const notes = JSON.parse(data);
+    const filteredNotes = notes.filter((note) => note.id !== noteId);
+    fs.writeFile(
+      path.join(__dirname, "db", "db.json"),
+      JSON.stringify(filteredNotes),
+      (err) => {
+        if (err) throw err;
+        res.json(filteredNotes);
+      }
+    );
+  });
+});
 
 // route for root URL
 app.get("/", (req, res) => {
