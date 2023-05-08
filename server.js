@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/api/notes", (req, res) => {
   fs.readFile("./db/db.json", (err, data) => {
     err
-      ? res.status(500).send("Error reading database file")
+      ? res.status(500).send("Error reading database file.")
       : res.json(JSON.parse(data));
     // console.log("Success: notes retrieved from database");
   });
