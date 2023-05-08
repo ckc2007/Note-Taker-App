@@ -30,6 +30,8 @@ Once the application is live on either a local server or a deployed server (like
 
 ## Screenshot / Video
 
+Link to the deployed application on Heroku: [https://note-taker-app-ckc2007.herokuapp.com/]
+
 ![screenshot](./assets/images/screenshot.png)
 ![a simple web based application to save notes]( "a simple web based application to save notes")
 
