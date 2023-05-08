@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 // GET route to get list of notes
 app.get("/api/notes", (req, res) => {
   fs.readFile("./db/db.json", (err, data) => {
+    //   trying out the ternary form here. not always the most clear syntax:
     err
       ? res.status(500).send("Error reading database file.")
       : res.json(JSON.parse(data));
@@ -85,12 +86,9 @@ app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );
 
+// Heroku instructions:
 // heroku login in terminal
-
 // type in heroku create
-
 // git push herkou main
-
 // go to heroku itself and go to open app
-
 // git add, git commit git push and git push heroku main
